@@ -57,23 +57,18 @@ const LoginInput = ({hide, placeholder, parentFunction}:props)=>{
     const handleClick = () => setShow(!show);
 
     const [inputValue, setInputValue] = useState('');
-    // const handleClick = () => setShow(!show);
 
-    const hideBtn = hide ? <Button onClick = {handleClick}>{show ? 'Hide' : 'Show'}</Button> : '';
+    const hideBtn = hide ? <Button onClick = { handleClick }>{ show ? 'Hide' : 'Show' }</Button> : '';
 
     return (
-        <>
         <Container>
             <Input
-                // colorScheme = "blue"
-                // disabled = {hide}
                 placeholder = { placeholder }
                 type = { show ? 'text' : 'password' }
                 onChange = { e => parentFunction(e.target.value) }
             />
             {hideBtn}
         </Container>
-        </>
     )
 
 }

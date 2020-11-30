@@ -11,36 +11,37 @@ const App = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const checkLoginButton = (e:any)=>{
-    setDisable((username.length && password.length) ? false : true)
-  }
-
+  const checkLoginButton = () => setDisable((username.length && password.length) ? false : true);
   const updateUsername = (e:string) => setUsername(e);
   const updatePassword = (e:string) => setPassword(e);
+  const checkInputs = () => {
+    console.log('inside checkInputs', username, password)
+  }
 
   useEffect(()=>{
-    checkLoginButton('what');
+    checkLoginButton();
   })
 
   return (
     <div className="App">
       <header className="App-header">
         <Card
-          width = {410}
+          width = { 410 }
         >
           <LoginInput
-            hide = {false}
+            hide = { false }
             placeholder = 'Username'
-            parentFunction = {updateUsername}
+            parentFunction = { updateUsername }
           />
           <LoginInput
-            hide = {true}
+            hide = { true }
             placeholder = 'Password'
-            parentFunction = {updatePassword}
+            parentFunction = { updatePassword }
           />
           <Button
-            disabled = {disable}
+            disabled = { disable }
             content = 'Login'
+            buttonAction = { checkInputs }
           />
         </Card>
       </header>

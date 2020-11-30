@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
-// import { Button } from "@chakra-ui/react";
 import styled from 'styled-components';
 
 interface props {
     disabled: boolean;
     content: string;
+    buttonAction: Function;
 }
 
 const Button = styled.button`
@@ -29,17 +29,18 @@ const Button = styled.button`
     }
 `;
 
-const ButtonComponent = ({disabled, content}:props)=>{
+const ButtonComponent = ({disabled, content, buttonAction}:props)=>{
 
     // const [disabled, setDisabled] = useState(false);
     // const handleClick = () => setDisabled(!show)
 
     return (
         <Button
-            // colorScheme = "blue"
-            disabled = {disabled}
-            // size = 'lg'
-    >{content}</Button>
+            disabled = { disabled }
+            onClick = { () => buttonAction() }
+        >
+            { content }
+        </Button>
     )
 
 }
