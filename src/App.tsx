@@ -3,19 +3,42 @@ import './App.css';
 import Button from './components/Button';
 import LoginInput from './components/LoginInput';
 import Card from './components/Card';
+import ErrorMessage from './components/ErrorMessage';
 
 
 const App = () => {
 
   const [disable, setDisable] = useState(true);
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [emailErrorMessage, setEmailErrorMessage] = useState('');
+  const [passwordErrorMessage, setPasswordErrorMessage] = useState('');
 
-  const checkLoginButton = () => setDisable((username.length && password.length) ? false : true);
-  const updateUsername = (e:string) => setUsername(e);
+  const checkLoginButton = () => setDisable((email.length && password.length) ? false : true);
+  const updateEmail = (e:string) => setEmail(e);
   const updatePassword = (e:string) => setPassword(e);
-  const checkInputs = () => {
-    console.log('inside checkInputs', username, password)
+  const checkInputs = () => console.log((checkEmail() && checkPassword()) ? 'All fields are correct.' : 'Something went wrong.');
+  const checkEmail = () => {
+    const emailCheck = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    if(emailCheck.test(email)) {
+      setEmailErrorMessage('');
+      return true;
+    }
+    else{
+      setEmailErrorMessage('Must be an email: email@domain')
+      return false;
+    }
+  }
+  const checkPassword = () => {
+    const passwordCheck = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9]).{8,}$/;
+    if(passwordCheck.test(password)) {
+      setPasswordErrorMessage('');
+      return true;
+    }
+    else{
+      setPasswordErrorMessage('Password must be 8 characters long, and contain one of the following: lowercase, uppercase, number and special character.')
+      return false;
+    }
   }
 
   useEffect(()=>{
@@ -30,13 +53,19 @@ const App = () => {
         >
           <LoginInput
             hide = { false }
-            placeholder = 'Username'
-            parentFunction = { updateUsername }
+            placeholder = 'Email'
+            parentFunction = { updateEmail }
+          />
+          <ErrorMessage
+            message = { emailErrorMessage }
           />
           <LoginInput
             hide = { true }
             placeholder = 'Password'
             parentFunction = { updatePassword }
+          />
+          <ErrorMessage
+            message = { passwordErrorMessage }
           />
           <Button
             disabled = { disable }
