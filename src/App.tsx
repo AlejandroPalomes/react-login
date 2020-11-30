@@ -1,23 +1,48 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useState, useEffect} from 'react';
 import './App.css';
+import Button from './components/Button';
+import LoginInput from './components/LoginInput';
+import Card from './components/Card';
 
-function App() {
+
+const App = () => {
+
+  const [disable, setDisable] = useState(true);
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
+  const checkLoginButton = (e:any)=>{
+    setDisable((username.length && password.length) ? false : true)
+  }
+
+  const updateUsername = (e:string) => setUsername(e);
+  const updatePassword = (e:string) => setPassword(e);
+
+  useEffect(()=>{
+    checkLoginButton('what');
+  })
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+        <Card
+          width = {410}
         >
-          Learn React
-        </a>
+          <LoginInput
+            hide = {false}
+            placeholder = 'Username'
+            parentFunction = {updateUsername}
+          />
+          <LoginInput
+            hide = {true}
+            placeholder = 'Password'
+            parentFunction = {updatePassword}
+          />
+          <Button
+            disabled = {disable}
+            content = 'Login'
+          />
+        </Card>
       </header>
     </div>
   );
