@@ -1,15 +1,20 @@
-import React, {useState} from 'react';
+import React from 'react';
+import BeatLoader from "react-spinners/BeatLoader";
 import styled from 'styled-components';
 
 interface props {
     disabled: boolean;
     content: string;
     buttonAction: Function;
+    isLoading?: boolean;
 }
 
 const Button = styled.button`
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     font-size: 18px;
-    text-align: center;
     background: rgb(109, 104, 255);
     color: white;
     padding: 5px 10px;
@@ -29,20 +34,15 @@ const Button = styled.button`
     }
 `;
 
-const ButtonComponent = ({disabled, content, buttonAction}:props)=>{
-
-    // const [disabled, setDisabled] = useState(false);
-    // const handleClick = () => setDisabled(!show)
-
+const ButtonComponent = ({disabled, content, buttonAction, isLoading}:props)=>{
     return (
         <Button
             disabled = { disabled }
             onClick = { () => buttonAction() }
         >
-            { content }
+            { isLoading ? <BeatLoader color = '#ffffff' size = "8px"/> : <span>{ content }</span> }
         </Button>
     )
-
 }
 
 export default ButtonComponent;
