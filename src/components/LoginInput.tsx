@@ -56,8 +56,6 @@ const LoginInput = ({hide, placeholder, parentFunction}:props)=>{
     const [show, setShow] = useState(!hide);
     const handleClick = () => setShow(!show);
 
-    const [inputValue, setInputValue] = useState('');
-
     const hideBtn = hide ? <Button onClick = { handleClick }>{ show ? 'Hide' : 'Show' }</Button> : '';
 
     return (
@@ -67,7 +65,7 @@ const LoginInput = ({hide, placeholder, parentFunction}:props)=>{
                 type = { show ? 'text' : 'password' }
                 onChange = { e => parentFunction(e.target.value) }
             />
-            {hideBtn}
+            { hideBtn }
         </Container>
     )
 
