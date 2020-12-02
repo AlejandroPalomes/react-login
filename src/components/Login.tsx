@@ -1,4 +1,5 @@
 import { Redirect } from "react-router-dom";
+// import React, { useState, useEffect, useContext } from 'react';  //? to use with react context
 import React, { useState, useEffect } from 'react';
 import '../App.css';
 import Button from './Button';
@@ -6,8 +7,13 @@ import LoginInput from './LoginInput';
 import Card from './Card';
 import ErrorMessage from './ErrorMessage';
 
+// import authContext from '../auth-context'; //? to use with react context
 
-const Login = () => {
+interface props {
+    setToken: Function
+}
+
+const Login = ({setToken}:props) => {
 
     const [disable, setDisable] = useState(true);
     const [email, setEmail] = useState('');
@@ -16,11 +22,10 @@ const Login = () => {
     const [passwordErrorMessage, setPasswordErrorMessage] = useState('');
     const [redirect, setRedirect] = useState(false);
     const [waitingResponse, setWaitingResponse] = useState(false);
+    // const {token, setToken, clearLocalStorage} = useContext(authContext); //? to use with react context
 
     interface ServerResponse {
-        name: string,
-            surname: string,
-            jwt: string
+        newToken: string
     }
 
     const checkLoginButton = () => setDisable((email.length && password.length) ? false : true);
@@ -61,9 +66,7 @@ const Login = () => {
         new Promise((resolve, reject) => {
 
                 const mockResponse = {
-                    name: 'John',
-                    surname: 'Appleseed',
-                    jwt: 'ahdGFr59HfYn4j8S'
+                    newToken: 'ahdGFr59HfYn4j8S'
                 }
 
                 setTimeout(() => {
@@ -75,14 +78,12 @@ const Login = () => {
             .catch(e => handleServerError(e));
     }
 
-    const handleResponse = ({ jwt, ...user }: ServerResponse) => {
-        localStorage.setItem('jwt', jwt);
-        localStorage.setItem('user', JSON.stringify(user));
-
-        setRedirect(true);
-
+    const handleResponse = ({ newToken }: ServerResponse) => {
+        // localStorage.setItem('token', newToken);
+        setToken(newToken);
         setWaitingResponse(false);
         setDisable(false);
+        setRedirect(true);
     }
 
     const handleServerError = (message: string) => {
@@ -96,6 +97,9 @@ const Login = () => {
 
     useEffect(() => {
         checkLoginButton();
+        // let isMounted = true;
+        // if(isMounted) checkLoginButton();
+        // return () =>{ isMounted = false};    //* This function is executed when component unmounts
     }, [email, password])
 
     return (
@@ -112,7 +116,16 @@ const Login = () => {
                     />
                     <ErrorMessage
                         message = { emailErrorMessage }
-                    /> 
+                    />
+                    {/* <authContext.Consumer>
+                    {({token, updateAuth}) => (
+                        <LoginInput
+                        hide = { true }
+                        placeholder = {token}//'Password'
+                        parentFunction = { updatePassword }
+                    />
+                    )}
+                    </authContext.Consumer> */}
                     <LoginInput
                         hide = { true }
                         placeholder = 'Password'
