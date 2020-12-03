@@ -4,7 +4,7 @@ import styled from 'styled-components';
 interface props {
     hide: boolean;
     placeholder: string;
-    parentFunction: Function;
+    updateValue: Function;
 }
 
 const Container = styled.div`
@@ -19,7 +19,7 @@ const Container = styled.div`
     border-radius: 7px;
 `;
 
-const Input = styled.input`
+const StyledInput = styled.input`
     box-sizing: border-box;
     width: 100%;
     flex-grow: 1;
@@ -57,7 +57,7 @@ const Button = styled.button`
     }
 `;
 
-const LoginInput = ({hide, placeholder, parentFunction}:props)=>{
+const Input = ({hide, placeholder, updateValue}:props)=>{
 
     const [show, setShow] = useState(!hide);
     const handleClick = () => setShow(!show);
@@ -66,10 +66,10 @@ const LoginInput = ({hide, placeholder, parentFunction}:props)=>{
 
     return (
         <Container>
-            <Input
+            <StyledInput
                 placeholder = { placeholder }
                 type = { show ? 'text' : 'password' }
-                onChange = { e => parentFunction(e.target.value) }
+                onChange = { e => updateValue(e.target.value) }
             />
             { hideBtn }
         </Container>
@@ -77,4 +77,4 @@ const LoginInput = ({hide, placeholder, parentFunction}:props)=>{
 
 }
 
-export default LoginInput;
+export default Input;

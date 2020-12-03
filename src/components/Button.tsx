@@ -3,9 +3,9 @@ import BeatLoader from "react-spinners/BeatLoader";
 import styled from 'styled-components';
 
 interface props {
-    disabled: boolean;
-    content: string;
-    buttonAction: Function;
+    isDisabled: boolean;
+    buttonText: string;
+    onClick: Function;
     isLoading?: boolean;
 }
 
@@ -19,7 +19,7 @@ const Button = styled.button`
     color: white;
     padding: 5px 10px;
     border: none;
-    border-radius: 3px;
+    border-radius: 7px;
 
     &:hover{
         background: rgb(109, 104, 155);
@@ -34,13 +34,13 @@ const Button = styled.button`
     }
 `;
 
-const ButtonComponent = ({disabled, content, buttonAction, isLoading}:props)=>{
+const ButtonComponent = ({isDisabled, buttonText, onClick, isLoading}:props)=>{
     return (
         <Button
-            disabled = { disabled }
-            onClick = { () => buttonAction() }
+            disabled = { isDisabled }
+            onClick = { () => onClick() }
         >
-            { isLoading ? <BeatLoader color = '#ffffff' size = "8px"/> : <span>{ content }</span> }
+            { isLoading ? <BeatLoader color = '#ffffff' size = "8px"/> : <span>{ buttonText }</span> }
         </Button>
     )
 }

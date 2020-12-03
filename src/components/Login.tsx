@@ -1,140 +1,16 @@
-import { Redirect, Link } from "react-router-dom";
-import Connect from "../assets/img/connect.svg"
+import { Redirect } from "react-router-dom";
+import cityImage from "../assets/img/cityImage.svg"
 // import React, { useState, useEffect, useContext } from 'react';  //? to use with react context
 import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
+import {MainWrapper, ImageWrapper, FormWrapper, LogoContainer, StyledLogo, Name, StyledSpan, StyledLink, StyledLink2} from './styles/LoginStyles';
 // import '../App.css';
 import Button from './Button';
-import LoginInput from './LoginInput';
-import Logo from './Logo';
 import Card from './Card';
 import ErrorMessage from './ErrorMessage';
+import Input from './Input';
 
 // import authContext from '../auth-context'; //? to use with react context
 
-const MainWrapper = styled.div`
-width: 100vw;
-min-height: 100vh;
-display: flex;
-justify-content: space-between;
-align-items: center;
-`;
-
-const ImageWrapper = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-end;
-    overflow: hidden;
-    z-index: -1;
-    position: absolute;
-    max-width: 100vw;
-    flex-grow: 1;
-    height: 100vh;
-    opacity: 0.3;
-
-    h3{
-        display: none;
-        font-family: "Permanent";
-        font-size: 68px;
-        color: rgb(109, 104, 255);
-        text-align: center;
-    }
-
-    img{
-        width: 1500px;
-        margin-bottom: 0;
-    }
-
-    @media (min-width: 992px){
-        justify-content: center;
-        margin-left: 50px;
-        opacity: 1;
-        position: relative;
-
-        h3{
-            display: block;
-        }
-
-        img{
-            display: none;
-        }
-    }
-
-    @media (min-width: 1211px){
-        justify-content: space-between;
-
-        h3{
-            font-size: 100px;
-            margin: 100px 0 0 0;
-        }
-
-        img{
-            display: block;
-            width: 100%;
-            margin-bottom: 10px;
-        }
-    }
-`;
-
-const FormWrapper = styled.div`
-    width: 100%;
-    min-width: 355px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-    @media (min-width: 992px){
-        width: 30%;
-        align-items: space-between;
-        margin: 0 50px;
-    }
-`;
-
-const LogoContainer = styled.div`
-    margin-bottom: 50px;
-    padding-top: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-`;
-
-const StyledLogo = styled(Logo)`
-    display: none;
-
-    @media(min-width: 375px){
-        display: inline;
-    }
-`;
-
-const Name = styled.h1`
-    font-size: 60px;
-    font-family: "Permanent";
-    color: rgb(109, 104, 255);
-    margin: 0 0 0 10px;
-`;
-
-const StyledSpan = styled.span`
-    font-size: 18px;
-    color: rgb(22, 30, 46);
-    text-align: center;
-`;
-
-const StyledLink = styled(Link)`
-    color: rgb(109, 104, 255);
-    font-weight: bold;
-    text-decoration: none;
-`;
-
-const StyledLink2 = styled(Link)`
-    margin-top: 15px;
-    color: rgb(109, 104, 255);
-    font-weight: light;
-    font-size: 12px;
-    text-align: center;
-    text-decoration: none;
-`;
 
 interface props {
     setToken: Function
@@ -155,11 +31,10 @@ const Login = ({setToken}:props) => {
         newToken: string
     }
 
-    const checkLoginButton = () => setDisable((email.length && password.length) ? false : true);
     const updateEmail = (e: string) => setEmail(e);
     const updatePassword = (e: string) => setPassword(e);
-    const checkInputs = () => {
-        if (checkEmail() && checkPassword()) requestUser()
+    const handleLoginClick = () => {
+        if (checkEmail() && checkPassword()) mockedApiResponse()
     };
 
     const checkEmail = () => {
@@ -186,7 +61,7 @@ const Login = ({setToken}:props) => {
         }
     }
 
-    const requestUser = () => {
+    const mockedApiResponse = () => {
         setWaitingResponse(true);
         setDisable(true);
 
@@ -222,9 +97,10 @@ const Login = ({setToken}:props) => {
     }
 
     useEffect(() => {
-        checkLoginButton();
+        setDisable((email.length && password.length) ? false : true);
+        // setLoginButtonAvailability();
         // let isMounted = true;
-        // if(isMounted) checkLoginButton();
+        // if(isMounted) setLoginButtonAvailability();
         // return () =>{ isMounted = false};    //* This function is executed when component unmounts
     }, [email, password])
 
@@ -233,7 +109,7 @@ const Login = ({setToken}:props) => {
             <ImageWrapper>
                 <h3>all your needs in one place</h3>
                 <img
-                    src= {Connect}
+                    src= {cityImage}
                     alt="City connected"
                     width = "100%"
                 />
@@ -251,26 +127,26 @@ const Login = ({setToken}:props) => {
                             />
                             <Name>ukiyo</Name>
                         </LogoContainer>
-                        <LoginInput
+                        <Input
                             hide = { false }
                             placeholder = 'Email'
-                            parentFunction = { updateEmail }
+                            updateValue = { updateEmail }
                         />
                         <ErrorMessage
                             message = { emailErrorMessage }
                         />
-                        <LoginInput
+                        <Input
                             hide = { true }
                             placeholder = 'Password'
-                            parentFunction = { updatePassword }
+                            updateValue = { updatePassword }
                         />
                         <ErrorMessage
                         message = { passwordErrorMessage }
                         />
                         <Button
-                            disabled = { disable }
-                            content = 'Login'
-                            buttonAction = { checkInputs }
+                            isDisabled = { disable }
+                            buttonText = 'Login'
+                            onClick = { handleLoginClick }
                             isLoading = { waitingResponse }
                         />
                         <StyledLink2 to = "/forgotten">Forgot password?</StyledLink2>
