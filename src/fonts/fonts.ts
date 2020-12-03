@@ -7,7 +7,13 @@ export default createGlobalStyle`
         src: url(${Permanent}) format('truetype');
     }
 
-    *{
-        font-family: 'Arial', sans-serif
+    body {
+        margin: 0;
+        font-family: 'Arial', sans-serif;
+    }
+
+    code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+        monospace;
     }
 `;

@@ -1,13 +1,11 @@
-// import authContext from './auth-context'; //? to use with react context
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Switch, Route, Redirect, Link } from "react-router-dom";
+
 import GlobalFonts from './fonts/fonts';
 import Home from './components/Home';
 import Login from './components/Login';
 import NotFound from './components/NotFound';
-// import React,{ useState, useContext } from 'react'; //? to use with react context
-import React, { useEffect, useState } from 'react';
 import { TOKEN } from './constants'
-// import './App.css';
 
 const checkAuth = (token:string | null) =>{
 	if (token === TOKEN) return true
@@ -22,7 +20,6 @@ const clearToken = (item:string, setToken:Function)=>{
 };
 
 const App = () => {
-	// const {token, setToken} = useContext(authContext); //? to use with react context
 	const savedToken = localStorage.getItem('token');
 	const [token, setToken] = useState(savedToken);
 
@@ -34,9 +31,6 @@ const App = () => {
 		<Router>
 			<div>
 				<GlobalFonts />
-				{/* <authContext.Provider //? to use with react context
-					value = {{ token, setToken, clearToken }}
-				> */}
 				<Switch>
 					<Route exact path="/">
 						{()=>checkAuth(token) ? <Redirect to="/dashboard"/> : <Redirect to="/login"/>}
@@ -52,7 +46,6 @@ const App = () => {
 					</Route>
 					<Route component = { NotFound } />
 				</Switch>
-				{/* </authContext.Provider> */}
 			</div>
 		</Router>
 	);

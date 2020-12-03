@@ -33,7 +33,7 @@ const StyledInput = styled.input`
     }
 `;
 
-const Button = styled.button`
+const StyledButton = styled.button`
     display: none;
     padding: 5px;
     font-size: 14px;
@@ -62,7 +62,7 @@ const Input = ({hide, placeholder, updateValue}:props)=>{
     const [show, setShow] = useState(!hide);
     const handleClick = () => setShow(!show);
 
-    const hideBtn = hide ? <Button onClick = { handleClick }>{ show ? 'Hide' : 'Show' }</Button> : '';
+    const hideBtn = hide ? <StyledButton onClick = { handleClick }>{ show ? 'Hide' : 'Show' }</StyledButton> : '';
 
     return (
         <Container>

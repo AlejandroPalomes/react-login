@@ -22,13 +22,10 @@ const Logo = ({size, className}:props)=>{
             xmlnsXlink="http://www.w3.org/1999/xlink"
             x="0px"
             y="0px"
-            // viewBox={`0 0 ${size || 512} ${size || 512}`}
             width = {size}
             height = {size}
             viewBox="0 0 512 512"
             className = {className}
-            // style={`enable-background:new 0 0 ${size} ${size};`}
-            // xmlSpace="preserve"
         >
 
             <Background d="M256,512L256,512C114.6,512,0,397.4,0,256v0C0,114.6,114.6,0,256,0h0c141.4,0,256,114.6,256,256v0

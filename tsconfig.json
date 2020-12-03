@@ -5,7 +5,7 @@
   ],
   "compilerOptions": {
     "target": "es5",
-    "jsx": "react",
+    "jsx": "react-jsx",
     "allowSyntheticDefaultImports": true,
     "lib": [
       "dom",

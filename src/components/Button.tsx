@@ -9,7 +9,7 @@ interface props {
     isLoading?: boolean;
 }
 
-const Button = styled.button`
+const StyledButton = styled.button`
     height: 40px;
     display: flex;
     justify-content: center;
@@ -36,12 +36,12 @@ const Button = styled.button`
 
 const ButtonComponent = ({isDisabled, buttonText, onClick, isLoading}:props)=>{
     return (
-        <Button
+        <StyledButton
             disabled = { isDisabled }
             onClick = { () => onClick() }
         >
             { isLoading ? <BeatLoader color = '#ffffff' size = "8px"/> : <span>{ buttonText }</span> }
-        </Button>
+        </StyledButton>
     )
 }
 

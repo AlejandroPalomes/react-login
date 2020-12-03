@@ -1,8 +1,7 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
-import '@testing-library/jest-dom';
+import { BrowserRouter as Router } from "react-router-dom";
 import { render, fireEvent, waitFor } from '@testing-library/react';
 
 import Login from '../Login';
