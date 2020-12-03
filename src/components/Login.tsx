@@ -8,6 +8,7 @@ import Button from './Button';
 import Card from './Card';
 import ErrorMessage from './ErrorMessage';
 import Input from './Input';
+import { EMAIL, PASSWORD, TOKEN } from '../constants'
 
 // import authContext from '../auth-context'; //? to use with react context
 
@@ -43,10 +44,9 @@ const Login = ({setToken}:props) => {
         if (emailRegEx.test(email)) {
             setEmailErrorMessage('');
             return true;
-        } else {
-            setEmailErrorMessage('Must be an email: email@domain')
-            return false;
         }
+        setEmailErrorMessage('Must be an email: email@domain')
+        return false;
     }
 
     const checkPassword = () => {
@@ -55,10 +55,9 @@ const Login = ({setToken}:props) => {
         if (passwordRegEx.test(password)) {
             setPasswordErrorMessage('');
             return true;
-        } else {
-            setPasswordErrorMessage('Conditions: 8 char long, 1 lowercase, 1 uppercase, 1 number & 1 special character.')
-            return false;
         }
+        setPasswordErrorMessage('Conditions: 8 char long, 1 lowercase, 1 uppercase, 1 number & 1 special character.')
+        return false;
     }
 
     const mockedApiResponse = () => {
@@ -68,11 +67,11 @@ const Login = ({setToken}:props) => {
         new Promise((resolve, reject) => {
 
                 const mockResponse = {
-                    newToken: 'ahdGFr59HfYn4j8S'
+                    newToken: TOKEN
                 }
 
                 setTimeout(() => {
-                    if (email === 'admin@email.com') password === 'Pa$$w0rd' ? resolve(mockResponse) : reject('pwd');
+                    if (email === EMAIL) password === PASSWORD ? resolve(mockResponse) : reject('pwd');
                     else reject('user');
                 }, 1250);
             })
@@ -116,7 +115,6 @@ const Login = ({setToken}:props) => {
             </ImageWrapper>
             <FormWrapper>
                 { redirect && <Redirect to="/" /> }
-                {/* <div> */}
                     <Card
                         width = { 410 }
                         padding = { 50 }
@@ -157,7 +155,6 @@ const Login = ({setToken}:props) => {
                     >
                         <StyledSpan>New user? <StyledLink to = "/signup">Register here</StyledLink></StyledSpan>
                     </Card>
-                {/* </div> */}
             </FormWrapper>
         </MainWrapper>
     );

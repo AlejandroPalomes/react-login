@@ -6,18 +6,16 @@ import Login from './components/Login';
 import NotFound from './components/NotFound';
 // import React,{ useState, useContext } from 'react'; //? to use with react context
 import React, { useEffect, useState } from 'react';
-import './App.css';
+import { TOKEN } from './constants'
+// import './App.css';
 
 const checkAuth = (token:string | null) =>{
-	if (token === 'ahdGFr59HfYn4j8S') return true
-	else{
-		localStorage.removeItem('token');
-		return false;
-	}
+	if (token === TOKEN) return true
+	localStorage.removeItem('token');
+	return false;
 }
 
 const clearToken = (item:string, setToken:Function)=>{
-	console.log('inside clearToken')
 	setToken('');
 	localStorage.removeItem(item);
 	return <Redirect to="/login"/>;
@@ -59,16 +57,6 @@ const App = () => {
 		</Router>
 	);
 };
-
-// function Home() {
-// 	return (
-// 		<>
-// 		<h2>Welcome Back!</h2>
-// 		<span>You are in Dashboard.</span>
-// 		<Link to="/logout"><button onClick = { ()=> console.log('logout') }>logout</button></Link>
-// 		</>
-// 	)
-// }
 
 export default App;
 
