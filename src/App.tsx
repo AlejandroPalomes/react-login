@@ -1,5 +1,6 @@
 // import authContext from './auth-context'; //? to use with react context
 import { BrowserRouter as Router, Switch, Route, Redirect, Link } from "react-router-dom";
+import GlobalFonts from './fonts/fonts';
 import Login from './components/Login';
 import NotFound from './components/NotFound';
 // import React,{ useState, useContext } from 'react'; //? to use with react context
@@ -33,6 +34,7 @@ const App = () => {
 	return (
 		<Router>
 			<div>
+				<GlobalFonts />
 				{/* <authContext.Provider //? to use with react context
 					value = {{ token, setToken, clearToken }}
 				> */}

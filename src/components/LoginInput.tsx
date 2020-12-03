@@ -21,6 +21,7 @@ const Container = styled.div`
 
 const Input = styled.input`
     box-sizing: border-box;
+    width: 100%;
     flex-grow: 1;
     font-size: 18px;
     color: rgb(22, 30, 46);
@@ -33,6 +34,7 @@ const Input = styled.input`
 `;
 
 const Button = styled.button`
+    display: none;
     padding: 5px;
     font-size: 14px;
     color: rgb(22, 30, 46);
@@ -48,6 +50,10 @@ const Button = styled.button`
 
     &:focus{
         outline: none;
+    }
+
+    @media (min-width: 576px){
+        display: inline;
     }
 `;
 

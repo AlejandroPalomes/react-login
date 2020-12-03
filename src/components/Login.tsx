@@ -1,13 +1,49 @@
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 // import React, { useState, useEffect, useContext } from 'react';  //? to use with react context
 import React, { useState, useEffect } from 'react';
-import '../App.css';
+import styled from 'styled-components';
+// import '../App.css';
 import Button from './Button';
 import LoginInput from './LoginInput';
+import Logo from './Logo';
 import Card from './Card';
 import ErrorMessage from './ErrorMessage';
 
 // import authContext from '../auth-context'; //? to use with react context
+
+const LogoContainer = styled.div`
+    margin-bottom: 50px;
+    padding-top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`;
+
+const StyledLogo = styled(Logo)`
+    display: none;
+
+    @media(min-width: 375px){
+        display: inline;
+    }
+`;
+
+const Name = styled.h1`
+    font-size: 60px;
+    font-family: "Permanent";
+    color: rgb(109, 104, 255);
+    margin: 0 0 0 10px;
+`;
+
+const StyledSpan = styled.span`
+    font-size: 18px;
+    color: rgb(22, 30, 46);
+`;
+
+const StyledLink = styled(Link)`
+    color: rgb(109, 104, 255);
+    font-weight: bold;
+    text-decoration: none;
+`;
 
 interface props {
     setToken: Function
@@ -54,7 +90,7 @@ const Login = ({setToken}:props) => {
             setPasswordErrorMessage('');
             return true;
         } else {
-            setPasswordErrorMessage('Password must be 8 characters long, and contain one of the following: lowercase, uppercase, number and special character.')
+            setPasswordErrorMessage('Conditions: 8 char long, 1 lowercase, 1 uppercase, 1 number & 1 special character.')
             return false;
         }
     }
@@ -79,7 +115,6 @@ const Login = ({setToken}:props) => {
     }
 
     const handleResponse = ({ newToken }: ServerResponse) => {
-        // localStorage.setItem('token', newToken);
         setToken(newToken);
         setWaitingResponse(false);
         setDisable(false);
@@ -108,7 +143,14 @@ const Login = ({setToken}:props) => {
                 { redirect && <Redirect to="/" /> }
                 <Card
                     width = { 410 }
+                    padding = { 50 }
                 >
+                    <LogoContainer>
+                        <StyledLogo
+                            size = { 75 }
+                        />
+                        <Name>ukiyo</Name>
+                    </LogoContainer>
                     <LoginInput
                         hide = { false }
                         placeholder = 'Email'
@@ -117,15 +159,6 @@ const Login = ({setToken}:props) => {
                     <ErrorMessage
                         message = { emailErrorMessage }
                     />
-                    {/* <authContext.Consumer>
-                    {({token, updateAuth}) => (
-                        <LoginInput
-                        hide = { true }
-                        placeholder = {token}//'Password'
-                        parentFunction = { updatePassword }
-                    />
-                    )}
-                    </authContext.Consumer> */}
                     <LoginInput
                         hide = { true }
                         placeholder = 'Password'
@@ -140,6 +173,12 @@ const Login = ({setToken}:props) => {
                         buttonAction = { checkInputs }
                         isLoading = { waitingResponse }
                     />
+                </Card>
+                <Card
+                    width = { 410 }
+                    padding = { 20 }
+                >
+                    <StyledSpan>New user? <StyledLink to = "/signup">Register here</StyledLink></StyledSpan>
                 </Card>
             </header>
         </div>

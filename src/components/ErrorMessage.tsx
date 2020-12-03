@@ -8,6 +8,7 @@ interface props {
 const Message = styled.div`
 color: red;
 font-size: 12px;
+margin-bottom: 15px;
 `;
 
 const ErrorMessage = ({ message } : props)=>{
