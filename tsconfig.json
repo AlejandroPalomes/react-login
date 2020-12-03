@@ -1,7 +1,7 @@
 {
   "include": [
     "src/*",
-    "fonts"
+    "declarations"
   ],
   "compilerOptions": {
     "target": "es5",
